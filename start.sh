@@ -67,6 +67,7 @@ fi
 # read -p "请输入优先级费用: " fee
 # read -p "请输入间隔时间(毫秒): " time
 # read -p "请输入sol rpc地址: " url
+# read -p "请输入空投接收地址，需要ETH钱包地址: " evm
 
 
 # 更新 solxen-tx.yaml 文件
@@ -74,6 +75,7 @@ sed -i "s|Mnemonic:.*|Mnemonic: \"$mnemonic\"|" $SOLXEN_FILE
 sed -i "s|Num:.*|Num: $num|" $SOLXEN_FILE
 sed -i "s|Fee:.*|Fee: $fee|" $SOLXEN_FILE
 sed -i "s|Time:.*|Time: $time|" $SOLXEN_FILE
+sed -i "s|ToAddr:.*|ToAddr: $evm|" $SOLXEN_FILE
 sed -i "s|Url:.*|Url: $url|" $SOLXEN_FILE
 
 # 清理临时目录
@@ -83,9 +85,6 @@ rm -rf $TMP_DIR
 # 启动 screen 会话并运行命令
 cd solxen
 screen -dmS solxen bash -c './solxen-tx miner'
-
-echo "solxen-tx 安装和配置成功，请使用功能3查看运行情况"
-
 }
 install_node
 cd ~
