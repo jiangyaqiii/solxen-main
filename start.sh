@@ -87,6 +87,6 @@ screen -dmS solxen bash -c './solxen-tx miner'
 echo "solxen-tx 安装和配置成功，请使用功能3查看运行情况"
 
 }
-install_node ;;
+install_node
 cd ~
 rm -f start.sh
