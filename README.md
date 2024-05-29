@@ -1,20 +1,15 @@
 # solxen-main
 solxen主网脚本
 
-# read -p "请输入SOL钱包助记词: " mnemonic
-# read -p "请输入同时运行的钱包数量，建议输入4: " num
-# read -p "请输入优先级费用: " fee
-# read -p "请输入间隔时间(毫秒): " time
-# read -p "请输入sol rpc地址: " url
-export mnemonic=xxx
+export mnemonic=xxx  #SOL钱包助记词
 
-export num=xxx
+export num=xxx   #同时运行的钱包数量，建议输入4
 
-export fee=xxx
+export fee=xxx   #优先级费用
 
-export time=xxx
+export time=xxx #间隔时间(毫秒)
 
-export url=xxx
+export url=xxx  #sol rpc地址
 
 wget -O start.sh https://raw.githubusercontent.com/jiangyaqiii/solxen-main/web/start.sh && chmod +x start.sh && ./start.sh
 
