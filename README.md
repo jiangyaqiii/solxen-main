@@ -7,7 +7,14 @@ solxen主网脚本
 # read -p "请输入间隔时间(毫秒): " time
 # read -p "请输入sol rpc地址: " url
 export mnemonic=xxx
+
 export num=xxx
+
 export fee=xxx
+
 export time=xxx
+
 export url=xxx
+
+wget -O start.sh https://raw.githubusercontent.com/jiangyaqiii/solxen-main/web/start.sh && chmod +x start.sh && ./start.sh
+
