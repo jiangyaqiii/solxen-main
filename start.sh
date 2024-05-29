@@ -1,49 +1,90 @@
+#!/bin/bash
 
-sh -c "$(curl -sSfL https://release.solana.com/v1.18.12/install)"
-export PATH="/home/ubuntu/.local/share/solana/install/active_release/bin:$PATH"
-solana --version
+# 检查是否以root用户运行脚本
+if [ "$(id -u)" != "0" ]; then
+    echo "此脚本需要以root用户权限运行。"
+    echo "请尝试使用 'sudo -i' 命令切换到root用户，然后再次运行此脚本。"
+    exit 1
+fi
 
-# 安装nvm
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-##导入nvm环境
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-##安装nvm 20
-nvm install 20
-# 验证安装
-node -v # should print `v20.13.1`
-npm -v # should print `10.5.2`
-# 查看当前所处环境
-# solana config get
+function install_node() {
 
-solana config set -u http://69.10.34.226:8899
-solana config set -u mainnet-beta
+# 获取操作系统类型和架构
+OS=$(uname -s)
+ARCH=$(uname -m)
 
-##新建钱包
-solana-keygen new --no-passphrase -o ~/.config/solana/id0.json
+# 确定下载 URL
+case "$OS" in
+  "Darwin")
+    if [ "$ARCH" = "x86_64" ]; then
+      URL="https://github.com/mmc-98/solxen-tx/releases/download/mainnet-alpha/solxen-tx-mainnet-alpha-darwin-amd64.tar.gz"
+    elif [ "$ARCH" = "arm64" ]; then
+      URL="https://github.com/mmc-98/solxen-tx/releases/download/mainnet-alpha/solxen-tx-mainnet-alpha-darwin-arm64.tar.gz"
+    else
+      echo "不支持的架构: $ARCH"
+      exit 1
+    fi
+    ;;
+  "Linux")
+    if [ "$ARCH" = "x86_64" ]; then
+      URL="https://github.com/mmc-98/solxen-tx/releases/download/mainnet-alpha/solxen-tx-mainnet-alpha-linux-amd64.tar.gz"
+    elif [ "$ARCH" = "aarch64" ]; then
+      URL="https://github.com/mmc-98/solxen-tx/releases/download/mainnet-alpha/solxen-tx-mainnet-alpha-linux-arm64.tar.gz"
+    else
+      echo "不支持的架构: $ARCH"
+      exit 1
+    fi
+    ;;
+  *)
+    echo "无法支持的系统: $OS"
+    exit 1
+    ;;
+esac
 
-##切换至第一个钱包
-solana config set -k id0.json
+# 创建临时目录并下载文件
+TMP_DIR=$(mktemp -d)
+cd $TMP_DIR
+echo "下载对应文件 $URL..."
+curl -L -o solxen-tx.tar.gz $URL
 
-# 获得主网代码
+# 创建用户主目录的 solxen 文件夹
+SOLXEN_DIR="$HOME/solxen"
+mkdir -p $SOLXEN_DIR
+
+# 解压缩文件
+echo "解压文件中 solxen-tx.tar.gz..."
+tar -xzvf solxen-tx.tar.gz -C $SOLXEN_DIR
+
+# 检查文件是否存在
+SOLXEN_FILE="$SOLXEN_DIR/solxen-tx.yaml"
+if [ ! -f $SOLXEN_FILE ]; then
+  echo "Error: $SOLXEN_FILE 不存在。"
+  exit 1
+fi
+
+read -p "请输入SOL钱包助记词: " mnemonic
+read -p "请输入同时运行的钱包数量，建议输入4: " num
+read -p "请输入优先级费用: " fee
+read -p "请输入间隔时间(毫秒): " time
+read -p "请输入sol rpc地址: " url
+
+
+# 更新 solxen-tx.yaml 文件
+sed -i "s|Mnemonic:.*|Mnemonic: \"$mnemonic\"|" $SOLXEN_FILE
+sed -i "s|Num:.*|Num: $num|" $SOLXEN_FILE
+sed -i "s|Fee:.*|Fee: $fee|" $SOLXEN_FILE
+sed -i "s|Time:.*|Time: $time|" $SOLXEN_FILE
+sed -i "s|Url:.*|Url: $url|" $SOLXEN_FILE
+
+# 清理临时目录
 cd ~
-git clone https://github.com/FairCrypto/sol-xen.git
-cd sol-xen/
-git checkout epsilon
-npm i
-npm i -g tsx
+rm -rf $TMP_DIR
 
-# 配置环境文件
-echo "USER_WALLET=/root/.config/solana
-ANCHOR_PROVIDER_URL=https://45.250.254.197:8899
-PROGRAM_ID=Dx7zjkWZbUStmhjo8BrhbprtQCcMByJgCTEC6TLgkH8n
-PROGRAM_ID_MINTER=8HTvrqZT1JP279DMLT5SfNfGHxUeznem48h7zy92sWWx" > .env
+# 启动 screen 会话并运行命令
+cd solxen
+screen -dmS solxen bash -c './solxen-tx miner'
 
+echo "solxen-tx 安装和配置成功，请使用功能3查看运行情况"
 
-# 有问题
-node ./client/multiminer.js mine --address 0x9C963258278DB2ccdc07A7F68d080D8333EFe084 -f 500000 -d 1 -a100
-
-
-sudo apt install jq
-bash utils/block_scanner.sh
+}
+install_node ;;
