@@ -62,11 +62,11 @@ if [ ! -f $SOLXEN_FILE ]; then
   exit 1
 fi
 
-read -p "请输入SOL钱包助记词: " mnemonic
-read -p "请输入同时运行的钱包数量，建议输入4: " num
-read -p "请输入优先级费用: " fee
-read -p "请输入间隔时间(毫秒): " time
-read -p "请输入sol rpc地址: " url
+# read -p "请输入SOL钱包助记词: " mnemonic
+# read -p "请输入同时运行的钱包数量，建议输入4: " num
+# read -p "请输入优先级费用: " fee
+# read -p "请输入间隔时间(毫秒): " time
+# read -p "请输入sol rpc地址: " url
 
 
 # 更新 solxen-tx.yaml 文件
