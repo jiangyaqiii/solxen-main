@@ -9,6 +9,7 @@ sed -i "s|Num:.*|Num: $num|" $SOLXEN_FILE
 sed -i "s|Fee:.*|Fee: $fee|" $SOLXEN_FILE
 sed -i "s|Time:.*|Time: $time|" $SOLXEN_FILE
 sed -i "s|Url:.*|Url: $url|" $SOLXEN_FILE
+sed -i "s|evm:.*|evm: $url|" $SOLXEN_FILE
 
 # 清理临时目录
 cd ~
