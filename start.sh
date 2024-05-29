@@ -17,9 +17,9 @@ ARCH=$(uname -m)
 case "$OS" in
   "Darwin")
     if [ "$ARCH" = "x86_64" ]; then
-      URL="https://github.com/mmc-98/solxen-tx/releases/download/mainnet-alpha/solxen-tx-mainnet-alpha-darwin-amd64.tar.gz"
+      URL="https://github.com/mmc-98/solxen-tx/releases/download/mainnet-beta5/solxen-tx-mainnet-beta5-darwin-amd64.tar.gz"
     elif [ "$ARCH" = "arm64" ]; then
-      URL="https://github.com/mmc-98/solxen-tx/releases/download/mainnet-alpha/solxen-tx-mainnet-alpha-darwin-arm64.tar.gz"
+      URL="https://github.com/mmc-98/solxen-tx/releases/download/mainnet-beta5/solxen-tx-mainnet-beta5-darwin-arm64.tar.gz"
     else
       echo "不支持的架构: $ARCH"
       exit 1
@@ -27,9 +27,9 @@ case "$OS" in
     ;;
   "Linux")
     if [ "$ARCH" = "x86_64" ]; then
-      URL="https://github.com/mmc-98/solxen-tx/releases/download/mainnet-alpha/solxen-tx-mainnet-alpha-linux-amd64.tar.gz"
+      URL="https://github.com/mmc-98/solxen-tx/releases/download/mainnet-beta5/solxen-tx-mainnet-beta5-linux-amd64.tar.gz"
     elif [ "$ARCH" = "aarch64" ]; then
-      URL="https://github.com/mmc-98/solxen-tx/releases/download/mainnet-alpha/solxen-tx-mainnet-alpha-linux-arm64.tar.gz"
+      URL="https://github.com/mmc-98/solxen-tx/releases/download/mainnet-beta5/solxen-tx-mainnet-beta5-linux-arm64.tar.gz"
     else
       echo "不支持的架构: $ARCH"
       exit 1
