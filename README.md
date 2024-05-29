@@ -9,6 +9,8 @@ export fee=xxx   #优先级费用
 
 export time=xxx #间隔时间(毫秒)
 
+export evm=xxx #接受空投的evm地址
+
 export url=xxx  #sol rpc地址
 
 启动 
