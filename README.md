@@ -25,3 +25,6 @@ wget -O restart.sh https://raw.githubusercontent.com/jiangyaqiii/solxen-main/web
 
 curl -s https://raw.githubusercontent.com/jiangyaqiii/solxen-main/web/look_balance.sh |bash
 
+铸造代币
+
+curl -s https://raw.githubusercontent.com/jiangyaqiii/solxen-main/web/mint.sh |bash
