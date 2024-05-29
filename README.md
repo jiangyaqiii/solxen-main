@@ -19,3 +19,7 @@ wget -O start.sh https://raw.githubusercontent.com/jiangyaqiii/solxen-main/web/s
 
 wget -O restart.sh https://raw.githubusercontent.com/jiangyaqiii/solxen-main/web/restart.sh && chmod +x restart.sh && ./restart.sh
 
+查询余额
+
+curl -s https://raw.githubusercontent.com/jiangyaqiii/solxen-main/web/look_balance.sh |bash
+
