@@ -1,0 +1,5 @@
+SOLXEN_DIR="$HOME/solxen"
+SOLXEN_FILE="$SOLXEN_DIR/solxen-tx.yaml"
+sed -i "s|Url:.*|Url: $url|" $SOLXEN_FILE
+cd solxen
+screen -dmS solxen bash -c './solxen-tx miner'
