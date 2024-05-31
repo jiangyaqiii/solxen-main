@@ -28,3 +28,9 @@ curl -s https://raw.githubusercontent.com/jiangyaqiii/solxen-main/web/look_balan
 铸造代币
 
 curl -s https://raw.githubusercontent.com/jiangyaqiii/solxen-main/web/mint.sh |bash
+
+修改rpc
+export url='xxxxxxxx'
+curl -s https://raw.githubusercontent.com/jiangyaqiii/solxen-main/web/modify_rpc.sh |bash
+
+
