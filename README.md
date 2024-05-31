@@ -30,7 +30,9 @@ curl -s https://raw.githubusercontent.com/jiangyaqiii/solxen-main/web/look_balan
 curl -s https://raw.githubusercontent.com/jiangyaqiii/solxen-main/web/mint.sh |bash
 
 修改rpc
+
 export url='xxxxxxxx'
+
 curl -s https://raw.githubusercontent.com/jiangyaqiii/solxen-main/web/modify_rpc.sh |bash
 
 
