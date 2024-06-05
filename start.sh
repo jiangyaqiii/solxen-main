@@ -82,9 +82,38 @@ sed -i "s|Url:.*|Url: $url|" $SOLXEN_FILE
 cd ~
 rm -rf $TMP_DIR
 
+# ================================================================================================================================
 # 启动 screen 会话并运行命令
-cd solxen
-screen -dmS solxen bash -c './solxen-tx miner'
+cd ~
+#监控screen脚本
+echo '#!/bin/bash
+while true
+do
+    if ! screen -list | grep -q "solxen"; then
+        echo "Screen session not found, restarting..."
+        cd /root/solxen
+        screen -dmS solxen bash -c './solxen-tx miner'
+    fi
+    sleep 10  # 每隔10秒检查一次
+done' > monit.sh
+##给予执行权限
+chmod +x monit.sh
+# ================================================================================================================================
+echo '[Unit]
+Description=Quili Monitor Service
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/bin/bash /root/monit.sh
+
+[Install]
+WantedBy=multi-user.target' > /etc/systemd/system/solxen_monitor.service
+sudo systemctl daemon-reload
+sudo systemctl enable solxen_monitor.service
+sudo systemctl start solxen_monitor.service
+sudo systemctl status solxen_monitor.service
+# ================================================================================================================================
 }
 install_node
 cd ~
