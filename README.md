@@ -39,4 +39,5 @@ export url='xxxxxxxx'
 
 curl -s https://raw.githubusercontent.com/jiangyaqiii/solxen-main/web/modify_rpc.sh |bash
 
-
+尝试运行
+curl -s https://raw.githubusercontent.com/jiangyaqiii/solxen-main/web/try_run.sh |bash
